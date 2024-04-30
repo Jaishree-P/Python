@@ -1,0 +1,31 @@
+<html>  
+<head>  
+<title>  Reverse Fibonacci Series  </title>  
+</head>  
+<body style= "text-align: center;">  
+<h2> Fibonacci Series in Reverse Order </h2>  
+<script>  
+var a = 1, b = 0, res, num;  
+num = prompt( "Enter the number of terms ");  
+document.write ("Fibonacci Series of " + num + " terms  is " );  
+for ( var i =0; i < num; i++)  
+{  
+document.write ("  " + b);  
+res = a + b;  
+a = b;  
+b = res;  
+}  
+document.write( "" + "<br>");  
+document.write( "Fibonacci Series of " + num + " terms in Reverse Order is " + "<br>");   
+// print the series in reverse order  
+for ( i = 0; i < num; i++)  
+{  
+document.write( "  " +  a);  
+res = b - a;  
+b = a;  
+a = res;  
+}  
+</script>  
+</body>  
+</html>  
+
