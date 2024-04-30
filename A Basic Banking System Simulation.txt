@@ -1,0 +1,88 @@
+class Account:
+    def __init__(self, name, balance=0):
+        self.name = name
+        self.balance = balance
+        self.transaction_history = []
+
+    def deposit(self, amount):
+        self.balance += amount
+        self.transaction_history.append(f"Deposited ${amount}")
+
+    def withdraw(self, amount):
+        if amount > self.balance:
+            print("Insufficient funds!")
+        else:
+            self.balance -= amount
+            self.transaction_history.append(f"Withdrew ${amount}")
+
+    def transfer(self, amount, recipient):
+        if amount > self.balance:
+            print("Insufficient funds!")
+        else:
+            self.balance -= amount
+            recipient.balance += amount
+            self.transaction_history.append(f"Transferred ${amount} to {recipient.name}")
+            recipient.transaction_history.append(f"Received ${amount} from {self.name}")
+
+    def view_balance(self):
+        print(f"Current balance for {self.name}: ${self.balance}")
+
+    def view_transaction_history(self):
+        print(f"Transaction history for {self.name}:")
+        for transaction in self.transaction_history:
+            print("-", transaction)
+
+
+if __name__ == "__main__":
+    accounts = {}
+
+    while True:
+        print("\nMenu:")
+        print("1. Create Account")
+        print("2. Deposit")
+        print("3. Withdraw")
+        print("4. Transfer")
+        print("5. View Balance")
+        print("6. View Transaction History")
+        print("7. Exit")
+
+        choice = int(input("Enter your choice: "))
+
+        if choice == 1:
+            name = input("Enter your name: ")
+            initial_balance = float(input("Enter initial balance: $"))
+            accounts[name] = Account(name, initial_balance)
+            print("Account created successfully!")
+
+        elif choice == 2:
+            name = input("Enter your name: ")
+            amount = float(input("Enter amount to deposit: $"))
+            accounts[name].deposit(amount)
+            print("Deposit successful!")
+
+        elif choice == 3:
+            name = input("Enter your name: ")
+            amount = float(input("Enter amount to withdraw: $"))
+            accounts[name].withdraw(amount)
+
+        elif choice == 4:
+            sender_name = input("Enter your name: ")
+            recipient_name = input("Enter recipient's name: ")
+            amount = float(input("Enter amount to transfer: $"))
+            accounts[sender_name].transfer(amount, accounts[recipient_name])
+            print("Transfer successful!")
+
+        elif choice == 5:
+            name = input("Enter your name: ")
+            accounts[name].view_balance()
+
+        elif choice == 6:
+            name = input("Enter your name: ")
+            accounts[name].view_transaction_history()
+
+        elif choice == 7:
+            print("Exiting...")
+            break
+
+        else:
+            print("Invalid choice! Please try again.")
